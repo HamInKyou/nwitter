@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { dbService } from "firebaseInstance";
 import { addDoc, getDocs, collection } from "firebase/firestore";
 
-function Home() {
+function Home({ userObj }) {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
 
@@ -22,8 +22,9 @@ function Home() {
   const onSubmit = async (event) => {
     event.preventDefault();
     await addDoc(collection(dbService, "nweets"), {
-      nweet,
+      text: nweet,
       createdAt: Date.now(),
+      creatorId: userObj.uid,
     });
     setNweet("");
   };
@@ -49,7 +50,7 @@ function Home() {
       <div>
         {nweets.map((nweet) => (
           <div key={nweet.id}>
-            <h4>{nweet.nweet}</h4>
+            <h4>{nweet.text}</h4>
           </div>
         ))}
       </div>
