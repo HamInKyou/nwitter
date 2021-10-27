@@ -32,16 +32,19 @@ function Home({ userObj }) {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const imageRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
-    const response = await uploadString(imageRef, attachment, "data_url");
-    const attachmentUrl = await getDownloadURL(response.ref);
-
-    await addDoc(collection(dbService, "nweets"), {
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const imageRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+      const response = await uploadString(imageRef, attachment, "data_url");
+      attachmentUrl = await getDownloadURL(response.ref);
+    }
+    const nweetObj = {
       text: nweet,
       createdAt: Date.now(),
       creatorId: userObj.uid,
       attachmentUrl,
-    });
+    };
+    await addDoc(collection(dbService, "nweets"), nweetObj);
     setNweet("");
     setAttachment("");
   };
