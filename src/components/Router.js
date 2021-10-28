@@ -5,7 +5,7 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 
-function Router({ userObj }) {
+function Router({ userObj, refreshUser }) {
   return (
     <HashRouter>
       {userObj && <Navigation userObj={userObj} />}
@@ -16,7 +16,7 @@ function Router({ userObj }) {
               <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-              <Profile userObj={userObj} />
+              <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
           </>
         ) : (

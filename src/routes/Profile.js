@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Nweet from "components/Nweet";
 
-function Profile({ userObj }) {
+function Profile({ userObj, refreshUser }) {
   const [nweets, setNweets] = useState([]);
   const history = useHistory();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -38,7 +38,10 @@ function Profile({ userObj }) {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (userObj.displayName !== newDisplayName) {
-      await updateProfile(userObj, { displayName: newDisplayName });
+      await updateProfile(authService.currentUser, {
+        displayName: newDisplayName,
+      });
+      refreshUser();
     }
   };
   return (
