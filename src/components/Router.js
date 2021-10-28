@@ -5,12 +5,12 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 
-function Router({ isLoggedIn, userObj }) {
+function Router({ userObj }) {
   return (
     <HashRouter>
-      {isLoggedIn && <Navigation userObj={userObj} />}
+      {userObj && <Navigation userObj={userObj} />}
       <Switch>
-        {isLoggedIn ? (
+        {userObj ? (
           <>
             <Route exact path="/">
               <Home userObj={userObj} />
