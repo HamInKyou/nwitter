@@ -8,7 +8,7 @@ import Navigation from "components/Navigation";
 function Router({ isLoggedIn, userObj }) {
   return (
     <HashRouter>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (
           <>
@@ -16,7 +16,7 @@ function Router({ isLoggedIn, userObj }) {
               <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-              <Profile />
+              <Profile userObj={userObj} />
             </Route>
           </>
         ) : (
