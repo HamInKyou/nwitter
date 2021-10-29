@@ -48,7 +48,7 @@ function AuthForm() {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="container">
         <input
           type="email"
           placeholder="Email"
@@ -56,6 +56,7 @@ function AuthForm() {
           value={email}
           required
           onChange={onChange}
+          className="authInput"
         />
         <input
           type="password"
@@ -64,11 +65,16 @@ function AuthForm() {
           value={password}
           required
           onChange={onChange}
+          className="authInput"
         />
-        <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
-        {error}
+        <input
+          type="submit"
+          className="authInput authSubmit"
+          value={newAccount ? "Create Account" : "Log In"}
+        />
+        {error && <span className="authError">{error}</span>}
       </form>
-      <span onClick={toggleAccount}>
+      <span onClick={toggleAccount} className="authSwitch">
         {newAccount ? "로그인하기" : "계정만들기"}
       </span>
     </>
